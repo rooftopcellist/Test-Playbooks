@@ -1,0 +1,10 @@
+#Make's Directory on Local machine
+---
+- hosts: all
+  become: true
+  tasks:
+     - name: Make New Rick & Morty Directory
+       file:
+         path: /RICKS_directory_for_MORTY_wubs
+         state: directory
+         mode: 0755
