@@ -1,0 +1,7 @@
+---
+
+- name: Make Config
+  gather_facts: false
+  file:
+    path: '/Users/christianadams/Desktop/test_config.txt'
+    state: touch
