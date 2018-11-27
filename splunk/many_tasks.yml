@@ -1,0 +1,15 @@
+---
+- hosts: all
+  tasks:
+    - name: Generate file names
+      script: gen_file_names.py
+
+    - name: Make temp dir
+      file:
+        path: temp_files
+        state: directory
+    - name: Make {{ events }} files for many events
+      file:
+        path: temp_files/{{ item }}
+        state: touch
+      with_lines: cat file_names.txt
