@@ -1,0 +1,10 @@
+---
+- name: Print Postgres Version
+  hosts: all
+
+  tasks:
+
+  - name: Hello World!
+    shell: echo "Hi!  Postgres version is:"
+  - name: pg version
+    shell: postgres --version
