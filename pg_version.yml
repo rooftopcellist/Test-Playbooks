@@ -20,7 +20,7 @@
   - name: Set upgrade flag if Postgres is installed and not at version 10
     debug:
       msg: "{{ not psql.stdout.startswith('10') }}"
-    when: psql exists
+    when: psql
 
 
   - name: Check if Postgresql10 is installed even if service is stopped
