@@ -40,6 +40,6 @@
     become_user: postgres
     register: pg_password_type
     
-  -name: Print password type
-   debug:
-     msg: pg_password_type
+  - name: Print password type
+    debug:
+      msg: pg_password_type
