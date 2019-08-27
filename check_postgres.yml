@@ -1,6 +1,6 @@
 ---
 
-- name: Test Postgres
+- name: test pg
   hosts: all
 
   tasks:
@@ -18,6 +18,13 @@
   - name: Print yum_pg
     debug:
       msg: '{{ yum_pg }}'
+  - name: Filter yum_pg
+    debug:
+      msg: '{{ yum_pg.results | selectattr("yumstate", "match", "installed") | list | length != 0 }}'
+
+  - name: Filter for real yum_pg
+    debug:
+      msg: '{{ yum_pg.results | selectattr("version", "contains", "9.6") | list | length != 0 }}'
 
   - name: Set upgrade flag if Postgresql is installed and not at version 10
     set_fact:
@@ -25,3 +32,10 @@
     when:
       - postgres_user_exists.stdout == "1"
       - yum_pg.results | selectattr("yumstate", "match", "installed") | list | length != 0
+      - yum_pg.results | selectattr("version", "contains", "9.6") | list | length != 0
+    no_log: false
+
+  - name: Will we upgrade?
+    debug:
+      msg: 'Postgresql 9.6 exists and will be upgraded to 10: {{ upgrade_postgres }}'
+
