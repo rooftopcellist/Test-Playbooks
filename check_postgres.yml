@@ -1,0 +1,27 @@
+---
+
+- name: Test Postgres
+  hosts: all
+
+  tasks:
+
+  - name: Check to see if postgres user exists
+    command: grep -c "^postgres:" /etc/passwd
+    ignore_errors: True
+    register: postgres_user_exists
+
+  - name: Check if Postgresql 9.6 is installed
+    yum:
+      list: postgresql
+    register: yum_pg
+
+  - name: Print yum_pg
+    debug:
+      msg: '{{ yum_pg }}'
+
+  - name: Set upgrade flag if Postgresql is installed and not at version 10
+    set_fact:
+      upgrade_postgres: True | bool
+    when:
+      - postgres_user_exists.stdout == "1"
+      - yum_pg.results | selectattr("yumstate", "match", "installed") | list | length != 0
