@@ -27,7 +27,7 @@
    
   - name: Print out Postgresql version from yum
     debug:
-      msg: "{{ postgresql_version.stdout }}"
+      msg: "{{ postgresql_version }}"
  
   - name: Register Postgresql Password Hashing Algorithm Used
     postgresql_query:
