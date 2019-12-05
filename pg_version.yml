@@ -4,10 +4,13 @@
 
   tasks:
 
-  - name: Hello World!
-    shell: echo "Hi!  Postgres version is:"
-  - name: pg version
-    shell: postgres --version
+  - name: Get postgresql version
+    shell: yum list installed | grep postgres
+    register: postgres_packages
+
+  - name: Print psql version
+    shell: psql --version
+    register: psql_version
 
   - name: Check to see if Postgres is installed
     command: psql -tAc "SHOW server_version;"
@@ -16,12 +19,6 @@
     changed_when: False
     ignore_errors: True
     register: psql
-
-  - name: Set upgrade flag if Postgres is installed and not at version 10
-    debug:
-      msg: "{{ not psql.stdout.startswith('10') }}"
-    when: psql
-
 
   - name: Check if Postgresql10 is installed even if service is stopped
     yum:
