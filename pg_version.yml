@@ -12,13 +12,13 @@
     shell: psql --version
     register: psql_version
 
-  - name: Check to see if Postgres is installed
-    command: psql -tAc "SHOW server_version;"
-    become: True
-    become_user: postgres
-    changed_when: False
-    ignore_errors: True
-    register: psql
+#   - name: Check to see if Postgres is installed
+#     command: psql -tAc "SHOW server_version;"
+#     become: True
+#     become_user: postgres
+#     changed_when: False
+#     ignore_errors: True
+#     register: psql
 
   - name: Check if Postgresql10 is installed even if service is stopped
     yum:
@@ -27,7 +27,7 @@
    
   - name: Print out Postgresql version from yum
     debug:
-      msg: "{{ postgresql_version.stdout.find('postgresql96') }}"
+      msg: "{{ postgresql_version.stdout }}"
  
   - name: Register Postgresql Password Hashing Algorithm Used
     postgresql_query:
