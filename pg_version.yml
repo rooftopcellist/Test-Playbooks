@@ -29,14 +29,14 @@
     debug:
       msg: "{{ postgresql_version }}"
  
-  - name: Register Postgresql Password Hashing Algorithm Used
-    postgresql_query:
-      db: postgres
-      query: "SELECT COUNT(u.usename) FROM pg_catalog.pg_user u WHERE u.usename = 'awx';"
-    become: True
-    become_user: postgres
-    register: pg_password_type
+#   - name: Register Postgresql Password Hashing Algorithm Used
+#     postgresql_query:
+#       db: postgres
+#       query: "SELECT COUNT(u.usename) FROM pg_catalog.pg_user u WHERE u.usename = 'awx';"
+#     become: True
+#     become_user: postgres
+#     register: pg_password_type
     
-  - name: Print password type
-    debug:
-      msg: pg_password_type
+#   - name: Print password type
+#     debug:
+#       msg: pg_password_type
