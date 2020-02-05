@@ -1,0 +1,8 @@
+---
+- name: Playbook will Fail
+  hosts: all
+
+  tasks:
+
+  - name: This task will Fail intentionally
+    command: /bin/false
